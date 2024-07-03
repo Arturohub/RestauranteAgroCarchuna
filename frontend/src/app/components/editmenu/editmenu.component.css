@@ -1,0 +1,19 @@
+.fade {
+    opacity: 0.2;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.selected-dish {
+    background-color: #ffe6b3;
+    font-weight: bold
+}

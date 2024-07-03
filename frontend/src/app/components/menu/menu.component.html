@@ -1,0 +1,86 @@
+<div class="fade">
+  <div class="mt-12 mb-12 text-center font-permanentMarker text-xl md:text-2xl lg:text-3xl">
+    <h1>Menu del Día ({{ today }})</h1>
+  </div>
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <ng-container *ngIf="!loading">
+    <ng-container *ngIf="restaurantClosedMondays; else checkAugustClosure">
+      <div class="mx-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex items-center justify-center sm:justify-start">
+          <div class="w-full xl:w-4/6 mx-auto h-auto border-4 border-yellow-300 p-6 rounded-xl text-red-700 font-bold text-justify text-lg md:text-xl lg:text-2xl">
+            Lo sentimos, pero el restaurante está cerrado todos los Lunes por descanso del personal. <br><br> Gracias por su comprensión, esperamos volver a verles mañana.
+          </div>
+        </div>
+        <div class="flex items-center justify-center sm:justify-end">
+          <img class="rounded-xl w-full md:w-4/6 mx-auto h-auto" src="descanso.jpg" alt="descansando imagen" />
+        </div>
+      </div>
+    </ng-container>
+    
+
+    <ng-template #checkAugustClosure>
+      <ng-container *ngIf="restaurantClosedAugust; else menuContent">
+        <div class="mx-4 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-70">
+          <div class="flex items-center justify-center sm:justify-start">
+            <div class="w-full xl:w-4/6 mx-auto h-auto border-4 border-yellow-500 p-6 rounded-xl text-red-700 font-bold text-justify text-lg md:text-xl lg:text-2xl">
+              Lo sentimos, pero el restaurante está cerrado del 1 al 15 de Agosto por vacaciones del personal. Gracias por su comprensión, les deseo felices vacaciones, nos vemos a la vuelta.
+            </div>
+          </div>
+          <div class="flex items-center justify-center sm:justify-end">
+            <img class="rounded-xl w-full md:w-4/6 mx-auto h-auto" src="vacaciones.jpg" alt="descansando imagen" />
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #menuContent>
+      <ng-container *ngIf="!menuAvailable; else noMenuMessage">
+        <div class="mx-4 sm:mx-6 md:mx-8 lg:mx-12">
+          <div (click)="togglePrimeros()" class="cursor-pointer bg-blue-200 p-4 rounded-xl mb-8">
+            <h1 class="my-6 text-center font-purplePurse text-lg md:text-xl lg:text-2xl underline font-extrabold">Primeros</h1>
+            <div *ngIf="showPrimeros" class="mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 mx-6">
+              <div *ngFor="let dish of primeros" (click)="goToSingleDish(dish.id)" class="cursor-pointer p-4 rounded-xl hover:bg-blue-400">
+                <h2 class="mb-2 font-pacifico text-lg md:text-xl lg:text-2xl text-center">{{ dish.name }}</h2>
+                <img [src]="dish.image" alt="{{dish.name}}" class="rounded-xl w-full h-auto shadow-xl">
+              </div>
+            </div>
+          </div>
+
+          <div (click)="toggleSegundos()" class="cursor-pointer bg-blue-200 p-4 rounded-xl mb-8">
+            <h1 class="my-6 text-center font-purplePurse text-lg md:text-xl lg:text-2xl underline font-extrabold">Segundos</h1>
+            <div *ngIf="showSegundos" class="mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 mx-6">
+              <div *ngFor="let dish of segundos" (click)="goToSingleDish(dish.id)" class="cursor-pointer p-4 rounded-xl hover:bg-blue-400">
+                <h2 class="mb-2 font-pacifico text-lg md:text-xl lg:text-2xl text-center">{{ dish.name }}</h2>
+                <img [src]="dish.image" alt="{{dish.name}}" class="rounded-xl w-full h-auto shadow-xl">
+              </div>
+            </div>
+          </div>
+
+          <div (click)="togglePostres()" class="cursor-pointer bg-blue-200 p-4 rounded-xl mb-8">
+            <h1 class="my-6 text-center font-purplePurse text-lg md:text-xl lg:text-2xl underline font-extrabold">Postres</h1>
+            <div *ngIf="showPostres" class="mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 mx-6">
+              <div *ngFor="let dish of postres" (click)="goToSingleDish(dish.id)" class="cursor-pointer p-4 rounded-xl hover:bg-blue-400">
+                <h2 class="mb-2 font-pacifico text-lg md:text-xl lg:text-2xl text-center">{{ dish.name }}</h2>
+                <img [src]="dish.image" alt="{{dish.name}}" class="rounded-xl w-full h-auto shadow-xl">
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="username === 'Arturo'" class="text-center mt-8 mb-16">
+            <button (click)="goToUpdateMenu()" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700">
+              Actualizar Menú
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #noMenuMessage>
+        <div class="text-center text-red-500 font-bold text-lg md:text-xl lg:text-2xl">
+          El menú aún no se ha creado. Espera un poquito, por favor. En breve lo encontrarás aquí
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</div>

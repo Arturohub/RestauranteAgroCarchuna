@@ -1,0 +1,38 @@
+<div class="fade flex flex-col items-center justify-center mx-6 mt-12 mb-8 gap-8 sm:flex-row">
+    <div class="max-w-3xl w-full bg-gray-200 p-8 rounded-xl shadow-xl">
+      <h2 class="underline font-purplePurse text-xl sm:text-3xl font-extrabold text-gray-800 text-center mb-4">Actualiza el menú del día</h2>
+      <form [formGroup]="editMenuForm" (ngSubmit)="submitEditMenu()" class="mt-8 border-none">
+        <div class="mb-4">
+          <label for="date" class="block text-gray-700 font-bold mb-2">Fecha:</label>
+          <input type="date" formControlName="date" id="date" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+  
+        <div class="mb-8">
+          <label for="primero" class="block text-gray-700 font-bold mb-2">Primer Plato:</label>
+          <select formControlName="primeros" id="primero" multiple required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            <option value="" disabled selected>Selecciona uno o varios platos</option>
+            <option *ngFor="let dish of primeros" [ngValue]="dish" [class.selected-dish]="editMenuForm.value.primeros.includes(dish)">{{ dish.name }}</option>
+          </select>
+        </div>
+  
+        <div class="mb-8">
+          <label for="segundo" class="block text-gray-700 font-bold mb-2">Segundo Plato:</label>
+          <select formControlName="segundos" id="segundo" multiple required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            <option value="" disabled selected>Selecciona uno o varios platos</option>
+            <option *ngFor="let dish of segundos" [ngValue]="dish"[class.selected-dish]="editMenuForm.value.segundos.includes(dish)" >{{ dish.name }}</option>
+          </select>
+        </div>
+  
+        <div class="mb-8">
+          <label for="postre" class="block text-gray-700 font-bold mb-2">Postre:</label>
+          <select formControlName="postres" id="postre" multiple required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            <option value="" disabled selected>Selecciona uno o varios postre</option>
+            <option *ngFor="let dish of postres" [ngValue]="dish" [class.selected-dish]="editMenuForm.value.postres.includes(dish)">{{ dish.name }}</option>
+          </select>
+        </div>
+  
+        <button type="submit" class="mb-4 w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Actualiza el Menú</button>
+      </form>
+    </div>
+  </div>
+  

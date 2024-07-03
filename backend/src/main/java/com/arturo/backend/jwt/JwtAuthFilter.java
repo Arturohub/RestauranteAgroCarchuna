@@ -13,6 +13,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.arturo.backend.service.auth.JwtService;
 import com.arturo.backend.service.auth.MyUserDetailsService;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,7 +47,18 @@ public class JwtAuthFilter extends OncePerRequestFilter{
         }
 
         String jwt = authHeader.substring(7);
-        String username = jwtService.extractUsername(jwt);
+        String username = null;
+
+        try {
+            username = jwtService.extractUsername(jwt);
+        } catch (ExpiredJwtException e) {
+            sendErrorResponse(response, "Su sesión ha expirado. Por favor, inicie sesión de nuevo");
+            return;
+        } catch (JwtException e) {
+            sendErrorResponse(response, "Su sesión ha expirado. Por favor, inicie sesión de nuevo");
+            return;
+        }
+
         if(username !=null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
             if(userDetails != null && jwtService.isTokenValid(jwt)){
@@ -53,11 +66,11 @@ public class JwtAuthFilter extends OncePerRequestFilter{
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } else {
-                sendErrorResponse(response, "Authorisation has expired. Please, log in again");
+                sendErrorResponse(response, "Su sesión ha expirado. Por favor, inicie sesión de nuevo");
                 return;
             }
         } else {
-            sendErrorResponse(response, "Please, you need to log in to enjoy this part of the blog");
+            sendErrorResponse(response, "Please, you need to log in to enjoy this part of the website");
             return;
         }
         filterChain.doFilter(request, response);

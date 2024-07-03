@@ -47,16 +47,15 @@ public class WebSecurityConfig {
             .cors(c -> c.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                .requestMatchers("/api/auth/login", "/api/auth/register", "api/blog/**", "api/likes/**" ).permitAll()
+                .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/logout", "/api/dishes/**", "/api/menus/**", "/api/bookings/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/user/**").hasRole("USER")
-                .requestMatchers("/api/auth/logout").permitAll()
+                .requestMatchers("/api/users/**").hasRole("USER")
                 .anyRequest().authenticated())
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
                 })
-                .requiresChannel(channel -> channel
-                    .anyRequest().requiresSecure())
+                //.requiresChannel(channel -> channel
+                //       .anyRequest().requiresSecure())
                 .headers(headers -> headers.frameOptions().sameOrigin())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
@@ -78,7 +77,7 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
       CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowedOrigins(Arrays.asList("https://arturosblog-ty61.onrender.com"));
+      configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
       configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
       configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
       configuration.setAllowCredentials(true);

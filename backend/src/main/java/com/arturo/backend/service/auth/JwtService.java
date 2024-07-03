@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import javax.crypto.SecretKey;
@@ -12,7 +13,11 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.arturo.backend.DTO.auth.MyUser;
+import com.arturo.backend.repository.auth.MyUserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -23,6 +28,9 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 public class JwtService {
+
+    @Autowired
+    private MyUserRepository userRepository;
 
    @Autowired
     private Environment env;
@@ -35,9 +43,17 @@ public class JwtService {
         VALIDITY = TimeUnit.MINUTES.toMillis(Long.parseLong(env.getProperty("TIME")));
     }
 
+    private SecretKey generateKey() {
+        byte[] decodedKey = Base64.getDecoder().decode(SECRET);
+        return Keys.hmacShaKeyFor(decodedKey);
+    }
+    
     public String generateToken(UserDetails userDetails) {
+        MyUser myUser = getUserFromRepository(userDetails.getUsername());
         Map<String, String> claims = new HashMap<>();
         claims.put("iss", "https");
+        claims.put("role", myUser.getRole());
+        claims.put("image", myUser.getImage());
         return Jwts.builder()
                 .claims(claims)
                 .subject(userDetails.getUsername())
@@ -47,9 +63,9 @@ public class JwtService {
                 .compact();
     }
 
-    private SecretKey generateKey() {
-        byte[] decodedKey = Base64.getDecoder().decode(SECRET);
-        return Keys.hmacShaKeyFor(decodedKey);
+    private MyUser getUserFromRepository(String username) {
+        Optional<MyUser> userOptional = userRepository.findByUsername(username);
+        return userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
     public String extractUsername(String jwt) {
@@ -61,7 +77,7 @@ public class JwtService {
         return Jwts.parser()
                 .verifyWith(generateKey())
                 .build()
-                .parseSignedClaims(jwt)
+                .parseSignedClaims(jwt.trim())
                 .getPayload();
     }
 

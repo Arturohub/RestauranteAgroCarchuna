@@ -1,0 +1,54 @@
+<div class="bg-gray-800">
+    <nav class="flex items-center justify-between flex-wrap p-6">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <a routerLink=""><img src="logobar.jpg" class="w-16 h-16 lg:w-20 lg:h-20 rounded-xl cursor-pointer text-center" alt="Logo Restaurante"></a>
+      </div>
+      <div (click)="toggleMenu()" class="block lg:hidden">
+        <button class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
+          <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v15z"/></svg>
+        </button>
+      </div>
+      <div [ngClass]="{'hidden': !isMenuOpen, 'block': isMenuOpen}" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto ml-4">
+        <div class="text-sm lg:flex-grow">
+          <a routerLink="/home" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center">
+            Inicio
+          </a>
+          <a routerLink="/menu" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center">
+            Menu Diario
+          </a>
+          <a routerLink="/conocenos" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center">
+            Conócenos
+          </a>
+          <a routerLink="/contacto" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center">
+            Contacto
+          </a>
+          <a routerLink="/reservas" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center">
+            Reservas
+          </a>
+          <a *ngIf="!loggedIn" routerLink="/login" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center">
+            Login
+          </a>
+          <a *ngIf="loggedIn" (click)="logout()" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center cursor-pointer">
+            Logout
+          </a>
+          <a *ngIf="loggedIn && username ==='Arturo'" (click) ="goToCreateNewDish()" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center cursor-pointer">
+            CreaPlato
+          </a>
+          <a *ngIf="loggedIn && username ==='Arturo'" (click) ="goToCreateNewMenu()" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center cursor-pointer">
+            CreaMenu
+          </a>
+          <a *ngIf="loggedIn && username ==='Arturo'" (click) ="goToCheckReservas()" class="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:underline hover:text-white mr-6 text-lg md:text-lg lg:text-xl font-bold text-center cursor-pointer">
+            MiraReservas
+          </a>
+        </div>
+          <ng-container *ngIf="loggedIn" >
+            <div class="flex flex-col items-center justify-center border border-white p-2 mt-4 mr-4">         
+                <img [src]="userImage" alt="User Image" class="w-10 h-10 rounded-full">
+                <span class="text-white text-lg md:text-lg lg:text-xl font-bold">{{ username }}</span>
+            </div>  
+        </ng-container>
+
+      </div>
+    </nav>
+  </div>
+  

@@ -1,0 +1,38 @@
+<div class="fade flex items-center justify-center mx-6 mt-12 mb-8 gap-8">
+    <form [formGroup]="formEditDish" (ngSubmit)="updateDish()" class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
+      <h2 class="underline font-purplePurse text-xl sm:text-3xl font-extrabold text-gray-800 text-center mb-4">Edita el plato</h2>
+        <div class="mb-8 mt-8">
+          <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+          <input id="name" formControlName="name" class="form-input mt-1 block w-full border border-gray-300 rounded-lg p-2" required />
+        </div>
+        <div class="mb-8">
+          <label for="description" class="block text-gray-700 font-bold mb-2">Description</label>
+          <textarea id="description" formControlName="description" class="form-textarea mt-1 block w-full border border-gray-300 rounded-lg p-2" required></textarea>
+        </div>
+        <div class="mb-8">
+          <label class="block text-gray-700 font-bold mb-2">Category</label>
+          <div class="flex items-center mb-2">
+            <input type="radio" id="primero" name="category" formControlName="category" value="Primero" class="form-radio text-indigo-600" required />
+            <label for="primero" class="ml-2">Primero</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input type="radio" id="segundo" name="category" formControlName="category" value="Segundo" class="form-radio text-indigo-600" />
+            <label for="segundo" class="ml-2">Segundo</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input type="radio" id="postre" name="category" formControlName="category" value="Postre" class="form-radio text-indigo-600" />
+            <label for="postre" class="ml-2">Postre</label>
+          </div>
+        </div>
+        <div class="mb-8">
+          <label for="alergenos" class="block text-gray-700 font-bold mb-2">Alergenos</label>
+          <input id="alergenos" formControlName="alergenos" class="form-input mt-1 block w-full border border-gray-300 rounded-lg p-2" required />
+        </div>
+        <div class="mb-8">
+          <label for="image" class="block text-gray-700 font-bold mb-2">Image</label>
+          <input type="file" id="image" (change)="onFileSelected($event)" class="form-input mt-1 block w-full border border-gray-300 rounded-lg p-2" />
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Actualiza el Plato</button>
+    </form>
+  </div>
+  

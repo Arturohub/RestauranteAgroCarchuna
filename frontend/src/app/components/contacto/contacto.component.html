@@ -1,0 +1,36 @@
+<div class="fade flex items-center justify-center mx-6 mt-12 mb-8 gap-8">
+    <div class="max-w-3xl w-full bg-gray-200 p-8 rounded-xl shadow-xl">
+        <h2 class="underline text-xl sm:text-3xl font-purplePurse font-extrabold text-gray-800 text-center mb-4">Contacta con nosotros</h2>
+        <form [formGroup]="formContact" (ngSubmit)="sendContactEmail()" class="mt-8 border-none">
+            <div class="mb-8">
+                <label for="name" class="font-bold text-lg md:text-xl">Nombre:</label>
+                <input type="text" id="name" formControlName="name" placeholder="Nombre"
+                    class="block w-full px-4 py-2 mt-2 border rounded-xl  border-gray-300 placeholder-gray-600 text-gray-900 hover:border-blue-800 sm:text-md">
+                <div *ngIf="formContact?.get('name')?.invalid && (formContact?.get('name')?.dirty || formContact?.get('name')?.touched)"
+                    class="text-sm text-red-600 mt-1">{{ formContact.get('name')?.errors?.["required"] ? 'Nombre es obligatorio' : '' }}</div>
+            </div>
+        
+            <div class="mb-8">
+                <label for="email" class="font-bold text-lg md:text-xl">Email:</label>
+                <input type="email" id="email" formControlName="email" placeholder="Email"
+                    class="block w-full px-4 py-2 mt-2 border rounded-xl  border-gray-300 placeholder-gray-600 text-gray-900 hover:border-blue-800 sm:text-md">
+                <div *ngIf="formContact?.get('email')?.invalid && (formContact?.get('email')?.dirty || formContact?.get('email')?.touched)"
+                    class="text-sm text-red-600 mt-1">
+                <ng-container *ngIf="formContact?.get('email')?.errors?.['required']">Email es obligatorio</ng-container>
+                <ng-container *ngIf="formContact?.get('email')?.errors?.['email'] && !formContact?.get('email')?.errors?.['required']">Email debe ser válido</ng-container>
+                </div>
+            </div>
+        
+            <div class="mb-8">
+                <label for="message" class="font-bold text-lg md:text-xl">Mensaje:</label>
+                <textarea id="message" formControlName="message" rows="4" placeholder="Mensaje"
+                        class="block w-full px-4 py-2 mt-2 border rounded-xl  border-gray-300 placeholder-gray-600 text-gray-900 hover:border-blue-800 sm:text-md"></textarea>
+                <div *ngIf="formContact?.get('message')?.invalid && (formContact?.get('message')?.dirty || formContact?.get('message')?.touched)"
+                    class="text-sm text-red-600 mt-1">{{ formContact.get('message')?.errors?.['required'] ? 'Mensaje es obligatorio' : '' }}</div>
+            </div>
+    
+        <button *ngIf="dissappearButton" type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Enviar Mensaje</button>
+        </form>
+    </div>
+  </div>
+  

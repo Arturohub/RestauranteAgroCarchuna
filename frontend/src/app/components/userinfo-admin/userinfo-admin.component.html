@@ -1,0 +1,48 @@
+<div class="mx-6 mt-8">
+
+
+<div *ngIf="user" class="max-w-2xl mx-auto mt-8 bg-white shadow-xl rounded-lg text-gray-900">
+    <div class="rounded-t-lg h-56 overflow-hidden">
+        <img class="w-full object-contain" src="presentacion.jpg" alt="User Image">
+    </div>
+    <div class="mx-auto w-28 h-28 relative -mt-14 border-4 border-white rounded-full overflow-hidden">
+        <img class="object-cover object-center h-32" [src]="user.image" alt="User Image">
+    </div>
+    <div class="text-center mt-2">
+        <h2 class="font-semibold">{{ user.name }}</h2>
+        <p class="text-gray-500">{{ user.role }}</p>
+    </div>
+    <div class="px-8 py-8">
+        <table class="table-auto w-full text-left">
+            <tbody>
+                <tr class="border-b border-gray-200">
+                    <th class="px-4 py-2">Nombre:</th>
+                    <td class="px-4 py-2">{{ user.name }}</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <th class="px-4 py-2">Apellidos:</th>
+                    <td class="px-4 py-2">{{ user.familyName }}</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <th class="px-4 py-2">Usuario:</th>
+                    <td class="px-4 py-2">{{ user.username }}</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <th class="px-4 py-2">Email:</th>
+                    <td class="px-4 py-2">{{ user.email }}</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <th class="px-4 py-2">Teléfono móvil:</th>
+                    <td class="px-4 py-2">{{ user.mobileNumber }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<div *ngIf="!user && user !== null" class="container mx-auto mt-8">
+    <p class="text-red-500">Esta información no la puedes ver porque no tienes autorización</p>
+</div>
+
+<div *ngIf="user === null" class="container mx-auto mt-8">
+    <p class="text-red-500">Cargando...Por favor, espera un poco, la base de datos es gratuita y por ello se apaga cuando hay inactividad y tarda 40 segundos en volver a la vida</p>
+</div>
+</div>

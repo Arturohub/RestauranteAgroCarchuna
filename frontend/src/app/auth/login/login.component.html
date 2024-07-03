@@ -1,0 +1,32 @@
+<div class="fade flex items-center justify-center mx-6 mt-12 gap-8">
+    <div class="max-w-4xl w-full bg-gray-200 p-8 rounded-xl shadow-xl">
+        <h2 class="mt-6 font-purplePurse text-center underline text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-800">
+          Inicia sesión
+        </h2>
+      <form class="mt-8 border-none" (ngSubmit)="login()" [formGroup]="formLogin">
+        <div class="rounded-xl">
+          <div class="mb-8">
+            <label for="username" class="font-bold text-lg md:text-xl">Usuario</label>
+            <input id="username" name="username" type="text" formControlName="username" autocomplete="username" required
+              class="block w-full px-4 py-2 mt-2 border rounded-xl  border-gray-300 placeholder-gray-600 text-gray-900 hover:border-blue-800 text-md md:text-lg"
+              placeholder="Usario">
+          </div>
+          <div class="mb-8">
+            <label for="password" class="font-bold text-lg md:text-xl">Contraseña</label>
+            <input id="password" name="password" type="password" formControlName="password" autocomplete="current-password" required
+              class="block w-full px-4 py-2 mt-2 border rounded-xl  border-gray-300 placeholder-gray-600 text-gray-900 hover:border-blue-800 text-md md:text-lg"
+              placeholder="Contraseña">
+          </div>  
+          <div class="mt-12">
+            <button *ngIf="dissappearButton" type="submit" class="w-full flex justify-center py-2 border border-transparent rounded-md shadow-sm text-md md:text-xl  font-bold text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Inicia Sesión
+            </button>
+           </div>
+        </div>
+      </form>
+      <div class="mt-10 text-center">
+        <p class="text-sm">Si aún no tienes cuenta, <a routerLink="/register" class="cursor-pointer text-indigo-600 underline">regístrate aquí!</a>.</p>
+      </div>
+    </div>
+</div>
+  

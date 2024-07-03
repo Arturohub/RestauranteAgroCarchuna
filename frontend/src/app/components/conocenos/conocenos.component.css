@@ -1,0 +1,331 @@
+.fade {
+  opacity: 0.2;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0.2;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+
+/*###################### VALORES ###################### */
+
+.flip-boxes {
+    justify-content: center;
+  }
+
+.flip-box {
+    display: flex;
+    align-content: stretch;
+    min-height: 200px;
+    flex-wrap: wrap;
+    position: relative;
+    border: 10px solid transparent;
+    padding:0;
+    border-top: 0;  
+    -webkit-perspective: 1000;
+            perspective: 1000;
+    
+    &:hover {
+      .back {
+        transform: rotateY(0deg);
+        z-index: 10;
+      }
+      
+      .front {
+        transform: rotateY(180deg);
+        z-index: -1;
+      }
+      
+    }
+    
+.back, .front {
+      position: relative;
+      background-color: #1b2d61;
+      color: white;
+
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex: 0 0 100%;
+      -webkit-transition: all 1s cubic-bezier(.5,1,.5,1);
+      transition: all 1s cubic-bezier(.5,1.3,.5,1.3);
+      transform-style: preserve-3d;
+      background-size: cover;
+      background-position: center;
+    }
+    
+.back {
+      background-color: #cecece;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: -1;
+      transform: rotateY(-180deg);
+      
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        border: 15px solid transparent;
+        border-bottom-color: white;
+        border-left-color: white;
+      }
+    }
+    
+.front {
+      z-index: 10;
+      
+      .content {
+        font-size: 1.5rem;
+      }
+      
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+
+      }
+    }
+    
+.content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      -webkit-transform: translateZ(50px);
+              transform: translateZ(50px);
+      text-shadow: 0px 0px 2px black;
+    
+    }
+  }
+  
+
+
+/*###################### GALERIA IMAGENES ###################### */
+.gallery-container {
+    padding: 2rem;
+}
+
+.gallery-slider-wrapper {
+    position: relative;
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+.gallery-slider {
+    display: flex;
+    aspect-ratio: 16 / 9;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+	border-radius: 0.5rem;
+	-ms-overflow-style: none; 
+	scrollbar-width: none;
+}
+
+.gallery-slider::-webkit-scrollbar {
+	display: none;
+}
+
+.gallery-slider img {
+	flex: 1 0 100%;
+	scroll-snap-align: start;
+	object-fit: cover;
+}
+
+.gallery-slider-nav {
+	display: flex;
+	column-gap: 1rem;
+	position: absolute;
+	bottom: 1.25rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
+.gallery-slider-nav a {
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	background-color: black;
+	opacity: 0.60;
+    font-size: 4rem;
+	transition: opacity ease 250ms;
+}
+
+.gallery-slider-nav a:hover {
+	opacity: 1;
+}
+
+
+
+
+
+/* ########################  IMAGE SLIDER  ####################### */
+
+
+.banner {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.background-image {
+  margin: 0 auto;
+  animation: blur 5s infinite;
+}
+
+@keyframes blur {
+  0%, 100% {
+    filter: blur(0);
+  }
+  50% {
+      filter: blur(3px);
+  }
+
+}
+
+.banner .slider {
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 20%;
+    left: calc(50% - 100px);
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    animation: autoRun 50s linear infinite;
+}
+
+@keyframes autoRun{
+    from{
+        transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
+    } to {
+        transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+    }
+}
+
+.banner .slider .item {
+    position: absolute;
+    inset: 0 0 0 0;
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(550px);
+}
+
+.banner .slider .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.banner .slider .item .description  {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(107, 176, 241, 0.5);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+    border-radius: 10%;
+}
+
+.banner .slider .item:hover .description {
+    display: block;
+    cursor: pointer;
+
+}
+
+@media (max-width: 1400px) {
+  .banner .slider {
+    margin-left: 0%;
+    margin-right: 60%;
+    width: 200px;
+    height: 0 auto;
+  }
+  .banner .slider .item {
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(450px);
+  }
+  
+}
+@media (max-width: 1160px) {
+  .banner .slider {
+    margin-left: 0%;
+    margin-right: 60%;
+    width: 160px;
+    height: 0 auto;
+  }
+  .banner .slider .item {
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(300px);
+  }
+  
+}
+
+@media (max-width: 870px) {
+  .banner .slider {
+    margin-left: 5%;
+    width: 140px;
+    height: 0 auto;
+  }
+  .banner .slider .item {
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(280px);
+  }
+  
+}
+
+@media (max-width: 620px) {
+  
+  .banner .slider {
+    margin-left: 10%;
+    width: 110px;
+    top: 10%;
+    height: 0 auto;
+  }
+  .banner .slider .item {
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(220px);
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .banner .slider {
+    margin-left: 10%;
+    width: 100px;
+    top: 15%;
+    height: 120px;
+}
+.banner .slider .item {
+  transform: 
+      rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(200px);
+}
+}

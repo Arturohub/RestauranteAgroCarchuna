@@ -1,0 +1,41 @@
+<div class="fade mx-6 my-8">
+  <h2 class="underline text-xl font-purplePurse md:text-2xl lg:text-3xl font-extrabold text-gray-800 text-center mb-4">Reservas de los últimos 10 días en adelante</h2>
+  <div class="mt-8 overflow-x-auto rounded-xl shadow-xl xl:mx-20">
+
+    <table class="w-full text-center text-gray-600">
+      <thead class="text-sm md:text-md lg:text-xl uppercase bg-gray-200">
+        <tr>
+          <th class="px-2 md:px-6 py-3">
+            Usuario
+            <input class="mt-2 p-2 border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" [(ngModel)]="filters.username" (ngModelChange)="applyFilters()" placeholder="Filtra por Usuario">
+          </th>
+          <th class="px-2 md:px-6 py-3">
+            Fecha
+            <input class="mt-2 p-2 border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" [(ngModel)]="filters.date" (ngModelChange)="applyFilters()" placeholder="Filtra por Fecha">
+          </th>
+          <th class="px-2 md:px-6 py-3">
+            Turno
+            <input class="mt-2 p-2 border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" [(ngModel)]="filters.turno" (ngModelChange)="applyFilters()" placeholder="Filtra por Turno">
+          </th>
+          <th class="px-2 md:px-6 py-3">
+            Hora
+            <input class="mt-2 p-2 border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" [(ngModel)]="filters.time" (ngModelChange)="applyFilters()" placeholder="Filtra por Tiempo">
+          </th>
+          <th class="px-2 md:px-6 py-3">
+            Personas
+            <input class="mt-2 p-2 border rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" [(ngModel)]="filters.amountPeople" (ngModelChange)="applyFilters()" placeholder="Filtra por Persona">
+          </th>
+        </tr>
+      </thead>
+      <tbody class="text-sm md:text-md lg:text-xl">
+        <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" *ngFor="let booking of filteredBookings">
+          <td class="py-3 cursor-pointer hover:bg-blue-200" (click)="goToUsernameInfo(booking.userBooker.username)">{{ booking.userBooker.username }}</td>
+          <td class="py-3">{{ booking.date }}</td>
+          <td class="py-3">{{ booking.turno }}</td>
+          <td class="py-3">{{ booking.time }}</td>
+          <td class="py-3">{{ booking.amountPeople }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

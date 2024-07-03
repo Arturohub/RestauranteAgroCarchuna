@@ -1,0 +1,26 @@
+.bg-blue-200 {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .bg-blue-200:hover {
+    background-color: #4fd1c5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+
+  
+/*###################### FADE ###################### */
+
+.fade {
+  opacity: 0.2;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0.2;
+  }
+  100% {
+      opacity: 1;
+  }
+}
