@@ -5,6 +5,7 @@ Professional webpage for a local restaurant. The project has the following featu
         Spring Boot API with Spring Boot Security for JWT Auth with roles
         
         Angular frontend with:
+        
                 Admin panel:
                         -Creation of new Dishes
                         -Creation of new Daily Menu
