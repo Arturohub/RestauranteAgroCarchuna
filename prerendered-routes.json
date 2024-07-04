@@ -1,0 +1,14 @@
+{
+  "routes": [
+    "/",
+    "/conocenos",
+    "/contacto",
+    "/create-dish",
+    "/create-menu",
+    "/login",
+    "/menu",
+    "/register",
+    "/reservas",
+    "/reservas-admin"
+  ]
+}
