@@ -51,13 +51,12 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/users/**").hasRole("USER")
                 .anyRequest().authenticated())
-                .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
-                })
+            .formLogin(httpSecurityFormLoginConfigurer -> {
+                httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
+            })
                 //.requiresChannel(channel -> channel
                 //       .anyRequest().requiresSecure())
-                .headers(headers -> headers.frameOptions().sameOrigin())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

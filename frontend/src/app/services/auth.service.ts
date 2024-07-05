@@ -15,19 +15,19 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  private authUrl: string = environment.authUrl;
   private baseUrl: string = environment.baseUrl;
   private tokenKey: string = environment.tokenName;
+
   public authStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) { }
 
   register(user: registerRequest ): Observable<registerResponse> {
-    return this.http.post<registerResponse>(`${this.authUrl}/register`, user)
+    return this.http.post<registerResponse>(`${this.baseUrl}/auth/register`, user)
   }
 
   login(credentials: loginRequest): Observable<string> {
-    return this.http.post(`${this.authUrl}/login`, credentials, { responseType: 'text' });
+    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { responseType: 'text' });
   }
 
   setToken(token: string): void {
@@ -46,7 +46,7 @@ export class AuthService {
 
 
   logout(): void {
-    this.http.post(`${this.authUrl}/logout`, {}).subscribe(() => {
+    this.http.post(`${this.baseUrl}/auth/logout`, {}).subscribe(() => {
       this.cookieService.delete(this.tokenKey);
       this.authStatus.emit(false);
       this.router.navigate(['/login']);
