@@ -54,9 +54,10 @@ public class WebSecurityConfig {
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
                 })
-                .requiresChannel(channel -> channel
-                    .anyRequest().requiresSecure())
-                .headers(headers -> headers.frameOptions().sameOrigin())
+                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
+                .headers(headers -> headers
+                    .frameOptions(frameOptions -> frameOptions.sameOrigin())
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
@@ -81,7 +82,6 @@ public class WebSecurityConfig {
       configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
       configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
       configuration.setAllowCredentials(true);
-      configuration.setExposedHeaders(Arrays.asList("Authorization"));
       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       source.registerCorsConfiguration("/**", configuration);
       return source;
