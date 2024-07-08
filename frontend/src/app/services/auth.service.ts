@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  private baseUrl: string = environment.baseUrl;
+  private baseUrl: string = "https://restaurante-agrocarchuna-api.onrender.com/api"
   private tokenKey: string = environment.tokenName;
 
   public authStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
