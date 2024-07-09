@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   login(credentials: loginRequest): Observable<string> {
-    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { responseType: 'text' });
+    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { responseType: 'text', withCredentials: true });
   }
 
   setToken(token: string): void {
