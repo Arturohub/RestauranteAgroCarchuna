@@ -42,23 +42,26 @@ public class WebSecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
-    @Bean
-    SecurityFilterChain SecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.disable())
-            .cors(c -> c.configurationSource(corsConfigurationSource()))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/logout", "/api/dishes/**", "/api/menus/**", "/api/bookings/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/users/**").hasRole("USER")
-                .anyRequest().authenticated())
-                .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
-                })
-                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        return httpSecurity.build();
-    }
+@Bean
+SecurityFilterChain SecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+        .csrf(csrf -> csrf.disable())
+        .cors(c -> c.configurationSource(corsConfigurationSource()))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+            .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/logout", "/api/dishes/**", "/api/menus/**", "/api/bookings/**").permitAll()
+            .requestMatchers("/api/admin/**").hasRole("ADMIN")
+            .requestMatchers("/api/users/**").hasRole("USER")
+            .anyRequest().authenticated())
+        .formLogin(httpSecurityFormLoginConfigurer -> {
+            httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
+        })
+        .requiresChannel(channel -> channel.anyRequest().requiresSecure())
+        .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+    return httpSecurity.build();
+}
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -76,9 +79,9 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
       CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowedOrigins(List.of("https://restauranteagrocarchuna.onrender.com"));
+      configuration.setAllowedOrigins(Arrays.asList("https://restauranteagrocarchuna.onrender.com"));
       configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-      configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Access-Control-Allow-Origin"));
+      configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
       configuration.setAllowCredentials(true);
       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       source.registerCorsConfiguration("/**", configuration);

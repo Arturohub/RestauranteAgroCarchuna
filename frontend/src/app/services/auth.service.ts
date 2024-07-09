@@ -27,7 +27,10 @@ export class AuthService {
   }
 
   login(credentials: loginRequest): Observable<string> {
-    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { responseType: 'text'});
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { headers, responseType: 'text' });
   }
 
   setToken(token: string): void {
