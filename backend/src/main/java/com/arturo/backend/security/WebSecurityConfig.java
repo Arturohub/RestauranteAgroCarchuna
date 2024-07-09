@@ -56,9 +56,6 @@ public class WebSecurityConfig {
                     httpSecurityFormLoginConfigurer.loginPage("/wtf").permitAll();
                 })
                 .requiresChannel(channel -> channel.anyRequest().requiresSecure())
-                .headers(headers -> headers
-                    .frameOptions(frameOptions -> frameOptions.sameOrigin())
-                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
