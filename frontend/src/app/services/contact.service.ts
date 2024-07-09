@@ -21,6 +21,6 @@ export class ContactService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post<ContactResponse>(`${this.baseUrl}/users/contact`, contactData, { headers });
+    return this.http.post<ContactResponse>(`${this.baseUrl}/users/contact`, contactData, { headers, withCredentials: true  });
   }
 }

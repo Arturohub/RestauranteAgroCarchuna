@@ -19,7 +19,7 @@ export class BookingService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<BookingRequest[]>(`${this.baseUrl}/admin/bookings`, { headers })
+    return this.http.get<BookingRequest[]>(`${this.baseUrl}/admin/bookings`, { headers, withCredentials: true })
   }
 
   getBookingsByDate(date: string): Observable<BookingRequest[]> {
@@ -31,7 +31,7 @@ export class BookingService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${this.baseUrl}/users/bookings`, booking, { headers, responseType: "text" });
+    return this.http.post(`${this.baseUrl}/users/bookings`, booking, { headers, responseType: "text", withCredentials: true });
 
   }
 

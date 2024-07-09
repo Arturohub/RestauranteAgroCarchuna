@@ -31,7 +31,7 @@ export class DishService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${this.baseUrl}/admin/dishes`, dish, { headers, responseType: "text" });
+    return this.http.post(`${this.baseUrl}/admin/dishes`, dish, { headers, responseType: "text", withCredentials: true  });
 
   }
 
@@ -40,7 +40,7 @@ export class DishService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`${this.baseUrl}/admin/dishes/${id}`, dish, { headers, responseType: "text" });
+    return this.http.put(`${this.baseUrl}/admin/dishes/${id}`, dish, { headers, responseType: "text", withCredentials: true  });
   }
 
   deleteDish(id: number, token: string): Observable<string> {
@@ -48,7 +48,7 @@ export class DishService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete(`${this.baseUrl}/admin/dishes/${id}`, { headers, responseType: "text" });
+    return this.http.delete(`${this.baseUrl}/admin/dishes/${id}`, { headers, responseType: "text", withCredentials: true  });
   }
 
 

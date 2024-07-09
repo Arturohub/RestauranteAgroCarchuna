@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   login(credentials: loginRequest): Observable<string> {
-    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { responseType: 'text', withCredentials: true });
+    return this.http.post(`${this.baseUrl}/auth/login`, credentials, { responseType: 'text'});
   }
 
   setToken(token: string): void {
@@ -83,6 +83,6 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<myUser>(`${this.baseUrl}/admin/auth/users/${username}`, { headers })
+    return this.http.get<myUser>(`${this.baseUrl}/admin/auth/users/${username}`, { headers, withCredentials: true })
   }
 }

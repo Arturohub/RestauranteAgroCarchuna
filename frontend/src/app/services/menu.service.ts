@@ -19,7 +19,7 @@ export class MenuService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${this.baseUrl}/admin/menus`, menuData, { headers, responseType: "text" });
+    return this.http.post(`${this.baseUrl}/admin/menus`, menuData, { headers, responseType: "text", withCredentials: true  });
   }
 
   getMenuById(id: number): Observable<Menu> {
@@ -35,8 +35,7 @@ export class MenuService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`${this.baseUrl}/admin/menus/${id}`, menuData, { headers, responseType: "text" } );
+    return this.http.put(`${this.baseUrl}/admin/menus/${id}`, menuData, { headers, responseType: "text", withCredentials: true  } );
   }
-
 
 }
